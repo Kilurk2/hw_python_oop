@@ -124,14 +124,23 @@ class Swimming(Training):
                 * self.weight * self.duration)
 
 
+WORKOUT = {
+    'SWM': Swimming,
+    'RUN': Running,
+    'WLK': SportsWalking,
+}
+
+
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    vidi_tren = {
-        'SWM': Swimming,
-        'RUN': Running,
-        'WLK': SportsWalking,
-    }
-    return vidi_tren[workout_type](*data)
+    # vidi_tren = {
+    #     'SWM': Swimming,
+    #     'RUN': Running,
+    #     'WLK': SportsWalking,
+    # }
+    if workout_type not in WORKOUT:
+        raise NotImplementedError('Нет такого ключа')
+    return WORKOUT[workout_type](*data)
 
 
 def main(training: Training) -> None:
